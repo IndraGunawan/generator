@@ -1,0 +1,13 @@
+/**
+ * <description>
+ *
+ * @param <variableType> $<variableName>
+ *
+ * @return <entity>
+ */
+public function <methodName>(<methodTypeHint>$<variableName>)<returnTypeHint>
+{
+<spaces>$this-><fieldName>[] = $<variableName>;
+
+<spaces>return $this;
+}

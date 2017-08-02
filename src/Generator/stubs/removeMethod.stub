@@ -1,0 +1,9 @@
+/**
+ * <description>
+ *
+ * @param <variableType> $<variableName>
+ */
+public function <methodName>(<methodTypeHint>$<variableName>)
+{
+<spaces>$this-><fieldName>->removeElement($<variableName>);
+}

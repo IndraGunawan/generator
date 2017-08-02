@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+$autoloads = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php'
+];
+
+foreach ($autoloads as $autoload) {
+    if (file_exists($autoload)) {
+        require_once $autoload;
+    }
+}
+
+use Indragunawan\Generator\Application;
+
+$application = new Application();
+$application->run();

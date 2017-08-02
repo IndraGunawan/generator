@@ -1,0 +1,9 @@
+/**
+ * <description>
+ *
+ * @return <variableType>
+ */
+public function <methodName>()<returnTypeHint>
+{
+<spaces>return $this-><fieldName>;
+}

@@ -1,0 +1,24 @@
+{
+    "name": "indragunawan/generator",
+    "description": "PHP common generator.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Indra Gunawan",
+            "email": "hello@indra.my.id"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "symfony/console": "^3.3",
+        "phpdocumentor/reflection-docblock": "^3.2",
+        "doctrine/inflector": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Indragunawan\\Generator\\": "src/"
+        }
+    },
+    "bin": ["bin/generator"]
+}
