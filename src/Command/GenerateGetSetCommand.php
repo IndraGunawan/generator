@@ -28,7 +28,7 @@ class GenerateGetSetCommand extends Command
         $this
             ->setName('getset')
             ->setDescription('Generate Setter / Getter of PHP files.')
-            ->addArgument('name', InputArgument::REQUIRED, 'Namespace or Path of PHP files.')
+            ->addArgument('namespace', InputArgument::REQUIRED, 'Namespace of PHP file / directory.')
             ->addOption('php-version', null, InputOption::VALUE_REQUIRED, 'PHP Version, Implies the return type.', '7.1')
             ->addOption('no-backup', null, InputOption::VALUE_NONE, 'Do not backup existing files.')
             ->addOption('doctrine-entity-style', null, InputOption::VALUE_NONE, 'Doctrine entity style.')
@@ -40,7 +40,7 @@ class GenerateGetSetCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = trim(strtr($input->getArgument('name'), DIRECTORY_SEPARATOR, '\\'), '\\');
+        $name = trim(strtr($input->getArgument('namespace'), DIRECTORY_SEPARATOR, '\\'), '\\');
         $backupExisting = !$input->getOption('no-backup');
         $doctrineEntityStyle = $input->getOption('doctrine-entity-style');
 
