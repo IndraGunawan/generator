@@ -138,8 +138,12 @@ class GetSetGenerator
             }
         }
 
-        $code[] = $this->generateConstructor($refClass, $properties);
-        $code[] = $this->generateStubMethods($refClass, $properties);
+        if ($constructor = $this->generateConstructor($refClass, $properties)) {
+            $code[] = $constructor;
+        }
+        if ($methods = $this->generateStubMethods($refClass, $properties)) {
+            $code[] = $methods;
+        }
 
         return implode("\n", $code);
     }
@@ -172,7 +176,7 @@ class GetSetGenerator
             }
         }
 
-        return implode("\n\n", $methods);
+        return implode("\n", $methods);
     }
 
     protected function generateEntityStubMethod(ReflectionClass $refClass, string $type, string $fieldName, ?Type $varType, bool $isTypeArray = false)
@@ -199,10 +203,12 @@ class GetSetGenerator
         }
         $returnTypeHint = $returnTypeHint ? ' : '.$returnTypeHint : '';
 
-        if ($isTypeArray && $this->doctrineEntityStyle && $varType instanceof Types\Array_) {
-            $methodTypeHint = (string) $varType->getValueType();
-        } elseif ($isTypeArray && $this->doctrineEntityStyle && !$varType instanceof Types\Mixed_) {
-            $methodTypeHint = $varTypeHint;
+        if ($isTypeArray && $this->doctrineEntityStyle) {
+            if ($varType instanceof Types\Array_) {
+                $methodTypeHint = (string) $varType->getValueType();
+            } elseif (!$varType instanceof Types\Mixed_) {
+                $methodTypeHint = $varTypeHint;
+            }
         } elseif ($isTypeArray) {
             if ($varType instanceof Types\Mixed_) {
                 $methodTypeHint = '';
@@ -293,7 +299,7 @@ class GetSetGenerator
 
     private function getStubMethod(string $type): string
     {
-        $path = sprintf('%s/stubs/%sMethod.stub', __DIR__, $type);
+        $path = sprintf('%s/stubs/getset/%sMethod.stub', __DIR__, $type);
         if (!file_exists($path)) {
             throw new \RuntimeException(sprintf('File %s not found.', $path));
         }
@@ -311,6 +317,10 @@ class GetSetGenerator
             }
         }
 
-        return implode("\n", $lines);
+        if (count($lines) > 0) {
+            return implode("\n", $lines);
+        }
+
+        return '';
     }
 }
